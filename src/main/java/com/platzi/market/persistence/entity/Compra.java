@@ -1,7 +1,5 @@
 package com.platzi.market.persistence.entity;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,12 +14,12 @@ public class Compra {
     private Integer idCompra;
 
     @Column(name = "id_cliente")
-    private String id_cliente;
+    private String idCliente;
 
     private LocalDateTime fecha;
 
     @Column(name = "medio_pago")
-    private String medio_pago;
+    private String medioPago;
 
     private String comentario;
     private String estado;
@@ -30,8 +28,40 @@ public class Compra {
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
     private List<ComprasProducto> productos;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ComprasProducto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ComprasProducto> productos) {
+        this.productos = productos;
+    }
 
     public Integer getIdCompra() {
         return idCompra;
@@ -41,28 +71,12 @@ public class Compra {
         this.idCompra = idCompra;
     }
 
-    public String getId_cliente() {
-        return id_cliente;
-    }
-
-    public void setId_cliente(String id_cliente) {
-        this.id_cliente = id_cliente;
-    }
-
     public LocalDateTime getFecha() {
         return fecha;
     }
 
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
-    }
-
-    public String getMedio_pago() {
-        return medio_pago;
-    }
-
-    public void setMedio_pago(String medio_pago) {
-        this.medio_pago = medio_pago;
     }
 
     public String getComentario() {
